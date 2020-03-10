@@ -1,6 +1,6 @@
-function markdownItAttribution(md, options) {
+export default function markdownItAttribution(md, options) {
   const attributionPrefix = (options && options.attributionPrefix) || '--';
-  var Token;
+  let Token;
 
   function setupBlockquoteRule() {
     md.core.ruler.after('block', 'attribution', blockquoteRule);
@@ -12,7 +12,7 @@ function markdownItAttribution(md, options) {
 
     const indicePairs = blockquoteIndicePairs(state.tokens);
 
-    indicePairs.forEach(indices => {
+    indicePairs.forEach((indices) => {
       const [from, to] = indices;
       updateBlockquoteTokens(state.tokens, from, to);
     });
@@ -26,8 +26,8 @@ function markdownItAttribution(md, options) {
   }
 
   function indicesWithTokenType(tokens, tokenType) {
-    const mapped = tokens.map((token, index) => token.type === tokenType ? index : null)
-    const filtered = mapped.filter(element => element !== null);
+    const mapped = tokens.map((token, index) => (token.type === tokenType ? index : null));
+    const filtered = mapped.filter((element) => element !== null);
     return filtered;
   }
 
@@ -47,21 +47,20 @@ function markdownItAttribution(md, options) {
     const openingToken = tokens[fromIndex];
     const closingToken = tokens[toIndex];
 
-    const innerTokens = innerBlockquoteTokens(tokens, fromIndex, toIndex)
+    const innerTokens = innerBlockquoteTokens(tokens, fromIndex, toIndex);
 
     return [openingToken, innerTokens, closingToken].flat(2);
   }
 
   function innerBlockquoteTokens(tokens, fromIndex, toIndex) {
-    const level = tokens[fromIndex].level;
-    const quoteLines =
-      tokens
-        .slice(fromIndex, toIndex)
-        .filter(token => token.type === 'inline')
-        .map(token => token.content.split('\n'))
-        .flat();
+    const { level } = tokens[fromIndex];
+    const quoteLines = tokens
+      .slice(fromIndex, toIndex)
+      .filter((token) => token.type === 'inline')
+      .map((token) => token.content.split('\n'))
+      .flat();
 
-    return quoteLines.map(quoteLine => singleQuoteLineTokens(quoteLine, level));
+    return quoteLines.map((quoteLine) => singleQuoteLineTokens(quoteLine, level));
   }
 
   function singleQuoteLineTokens(quoteLine, level) {
@@ -73,13 +72,13 @@ function markdownItAttribution(md, options) {
         inlineToken(quoteLineWithoutPrefix, level + 2),
         citationClosingToken(level + 1),
       ];
-    } else {
-      return [
-        paragraphOpeningToken(level + 1),
-        inlineToken(quoteLine, level + 2),
-        paragraphClosingToken(level + 1),
-      ];
     }
+
+    return [
+      paragraphOpeningToken(level + 1),
+      inlineToken(quoteLine, level + 2),
+      paragraphClosingToken(level + 1),
+    ];
   }
 
   function citationOpeningToken(level) {
@@ -91,7 +90,7 @@ function markdownItAttribution(md, options) {
   }
 
   function citationToken(level, nesting) {
-    const token = new Token('paragraph_open', 'cite',  nesting);
+    const token = new Token('paragraph_open', 'cite', nesting);
     token.level = level;
     token.block = true;
     return token;
@@ -126,6 +125,4 @@ function markdownItAttribution(md, options) {
   }
 
   setupBlockquoteRule();
-};
-
-module.exports = markdownItAttribution;
+}

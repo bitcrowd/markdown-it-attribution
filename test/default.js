@@ -1,9 +1,13 @@
-var path = require('path');
-var generate = require('markdown-it-testgen');
+import MarkdownIt from 'markdown-it';
+import path from 'path';
+import generate from 'markdown-it-testgen';
+
+import MarkdownItAttribution from '..';
 
 describe('default attribution', function () {
-  var md = require('markdown-it')()
-    .use(require('../'));
+  it('converts attributions in blockquotes', function () {
+    const md = new MarkdownIt().use(MarkdownItAttribution);
 
-  generate(path.join(__dirname, 'fixtures/default.txt'), md);
+    generate(path.join(__dirname, 'fixtures/default.txt'), md);
+  });
 });

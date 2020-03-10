@@ -7,12 +7,12 @@ module.exports = (api) => {
       '@babel/preset-env',
       {
         targets: {
-          node: 4
+          node: 4,
         },
         useBuiltIns: 'usage',
-        corejs: 3
-      }
-    ]
+        corejs: 3,
+      },
+    ],
   ];
 
   return { presets };

@@ -1,13 +1,14 @@
-var pkg = require('./package.json');
-var browserify = require('browserify');
-var del = require('del');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var gulp = require('gulp');
-var filter = require('gulp-filter');
-var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
+const browserify = require('browserify');
+const del = require('del');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const gulp = require('gulp');
+const filter = require('gulp-filter');
+const rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
+const sourcemaps = require('gulp-sourcemaps');
+
+const pkg = require('./package.json');
 
 /**
  * Generate a preamble for the file header of the distributed script.
@@ -16,12 +17,14 @@ var sourcemaps = require('gulp-sourcemaps');
  * @param {string} [separator=' '] A separator to add between each item.
  * @return {string}
  */
-function preamble (pkg, separator) {
-  var items = [
-    pkg.name,
-    pkg.version,
-    'https://github.com/' + pkg.repository,
-    '@license ' + pkg.license
+function preamble(pack, separator) {
+  const repo = `https://github.com/${pack.repository}`;
+  const license = `@license ${pack.license}`;
+  const items = [
+    pack.name,
+    pack.version,
+    repo,
+    license,
   ];
 
   return items.join(separator || ' ');
@@ -37,7 +40,7 @@ gulp.task('build', function () {
   return browserify({
     entries: './index.js',
     debug: true,
-    standalone: 'markdownitAttribution'
+    standalone: 'markdownitAttribution',
   })
     .bundle()
     .pipe(source('index.js'))
@@ -50,8 +53,8 @@ gulp.task('build', function () {
     .pipe(uglify({
       output: {
         beautify: false,
-        preamble: '/*! ' + preamble(pkg) + ' */'
-      }
+        preamble: `/*! ${preamble(pkg)} */`,
+      },
     }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write('.'))
