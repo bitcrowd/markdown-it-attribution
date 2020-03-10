@@ -1,4 +1,5 @@
-function markdownItAttribution(md, _options) {
+function markdownItAttribution(md, options) {
+  const attributionPrefix = (options && options.attributionPrefix) || '--';
   var Token;
 
   function setupBlockquoteRule() {
@@ -65,8 +66,8 @@ function markdownItAttribution(md, _options) {
 
   function singleQuoteLineTokens(quoteLine, level) {
     const trimmedQuoteLine = quoteLine.trimStart();
-    if (trimmedQuoteLine.startsWith('--')) {
-      const quoteLineWithoutPrefix = trimmedQuoteLine.replace('--', '').trimStart();
+    if (trimmedQuoteLine.startsWith(attributionPrefix)) {
+      const quoteLineWithoutPrefix = trimmedQuoteLine.replace(attributionPrefix, '').trimStart();
       return [
         citationOpeningToken(level + 1),
         inlineToken(quoteLineWithoutPrefix, level + 2),
