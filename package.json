@@ -1,8 +1,8 @@
 {
   "name": "markdown-it-attribution",
   "description": "Add attribution to your quotations.",
-  "homepage": "https://github.com/dweidner/markdown-it-attribution#readme",
-  "repository": "dweidner/markdown-it-attribution",
+  "homepage": "https://github.com/bitcrowd/markdown-it-attribution#readme",
+  "repository": "bitcrowd/markdown-it-attribution",
   "version": "0.1.1",
   "author": "Daniel Weidner <hallo@danielweidner.de>",
   "license": "MIT",
