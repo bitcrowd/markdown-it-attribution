@@ -1,18 +1,16 @@
 {
-  "extends": "standard",
+  "extends": [
+    "airbnb",
+    "plugin:mocha/recommended"
+  ],
+  "plugins": [
+    "mocha"
+  ],
   "env": {
-    "browser": true,
-    "node": true
+    "mocha": true
   },
   "rules": {
-    "semi": ["error", "always"]
-  },
-  "overrides": [{
-    "files": [
-      "test/**/*.js"
-    ],
-    "env": {
-      "mocha": true
-    }
-  }]
+    "prefer-arrow-callback": "off",
+    "func-names": "off"
+  }
 }

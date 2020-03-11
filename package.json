@@ -1,8 +1,8 @@
 {
   "name": "markdown-it-attribution",
   "description": "Add attribution to your quotations.",
-  "homepage": "https://github.com/dweidner/markdown-it-attribution#readme",
-  "repository": "dweidner/markdown-it-attribution",
+  "homepage": "https://github.com/bitcrowd/markdown-it-attribution#readme",
+  "repository": "bitcrowd/markdown-it-attribution",
   "version": "0.1.1",
   "author": "Daniel Weidner <hallo@danielweidner.de>",
   "license": "MIT",
@@ -23,20 +23,28 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm test"
+      "pre-push": "npm run lint && npm test"
     }
   },
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-transform-object-assign": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/register": "^7.8.6",
     "browserify": "^16.5.0",
+    "core-js": "^3.6.4",
     "coveralls": "^3.0.6",
     "del": "^5.1.0",
     "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-mocha": "^6.3.0",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-standard": "^4.0.1",
     "gulp": "^4.0.2",
     "gulp-filter": "^6.0.0",
