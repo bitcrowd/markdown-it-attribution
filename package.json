@@ -47,6 +47,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-standard": "^4.0.1",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-filter": "^6.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sourcemaps": "^2.6.5",

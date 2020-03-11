@@ -3,6 +3,7 @@ const del = require('del');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const gulp = require('gulp');
+const babel = require('gulp-babel');
 const filter = require('gulp-filter');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
@@ -44,6 +45,7 @@ gulp.task('build', function () {
   })
     .bundle()
     .pipe(source('index.js'))
+    .pipe(babel())
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(rename({ basename: pkg.name }))
