@@ -1,3 +1,5 @@
+import flat from './util/flat';
+
 export default function markdownItAttribution(md, options) {
   const attributionPrefix = (options && options.attributionPrefix) || '--';
   let Token;
@@ -49,7 +51,7 @@ export default function markdownItAttribution(md, options) {
 
     const innerTokens = innerBlockquoteTokens(tokens, fromIndex, toIndex);
 
-    return [openingToken, innerTokens, closingToken].flat(2);
+    return flat([openingToken, innerTokens, closingToken]);
   }
 
   function innerBlockquoteTokens(tokens, fromIndex, toIndex) {
@@ -58,9 +60,8 @@ export default function markdownItAttribution(md, options) {
       .slice(fromIndex, toIndex)
       .filter((token) => token.type === 'inline')
       .map((token) => token.content.split('\n'))
-      .flat();
 
-    return quoteLines.map((quoteLine) => singleQuoteLineTokens(quoteLine, level));
+    return flat(quoteLines).map((quoteLine) => singleQuoteLineTokens(quoteLine, level));
   }
 
   function singleQuoteLineTokens(quoteLine, level) {
