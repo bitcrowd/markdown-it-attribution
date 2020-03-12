@@ -7,7 +7,7 @@ Namely this plugin allows to generate proper `<blockquote>` tags with nested `<c
 ```md
 > Quoted text here. Lorem ipsom etc
 > More quoted text here. Lorem ipsom etc
-> -- Ms. Cited Name-Here
+> --- Ms. Cited Name-Here
 ```
 Will be rendered as:
 ```html
@@ -37,8 +37,9 @@ import MarkdownItAttribution from './markdown-it/markdown-it-attribution';
 
 const mdit = new Markdown().use(MarkdownItAttribution, { attributionPrefix: '---' });
 const blockquote = [
-  '> That\'s one small step for [a] man, one giant leap for mankind.',
-  '> --— Neil Armstrong (1969, July 21)'
+  '> Quoted text here. Lorem ipsom etc',
+  '> More quoted text here. Lorem ipsom etc',
+  '> --- Ms. Cited Name-Here'
 ];
 
 mdit.render(blockquote.join('\n'));
