@@ -1,30 +1,22 @@
 {
   "name": "markdown-it-attribution",
-  "description": "Add attribution to your quotations.",
-  "homepage": "https://github.com/bitcrowd/markdown-it-attribution#readme",
-  "repository": "bitcrowd/markdown-it-attribution",
   "version": "0.1.1",
-  "author": "Daniel Weidner <hallo@danielweidner.de>",
+  "description": "A markdown-it plugin that handles attributions in blockquotes with <cite> tags.",
+  "homepage": "https://github.com/bitcrowd/markdown-it-attribution#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitcrowd/markdown-it-attribution.git"
+  },
+  "author": "bitcrowd",
   "license": "MIT",
-  "keywords": [
-    "markdown",
-    "markdown-it",
-    "markdown-it-plugin",
-    "blockquote",
-    "attribution"
-  ],
+  "bugs": {
+    "url": "https://github.com/bitcrowd/markdown-it-attribution/issues"
+  },
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
     "build": "babel src --out-dir . --ignore \"**/__test__\",\"**/*.test.js\"",
-    "test": "mocha",
-    "coverage": "nyc npm test",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint && npm test"
-    }
+    "test": "mocha"
   },
   "dependencies": {},
   "devDependencies": {
@@ -34,8 +26,6 @@
     "@babel/register": "^7.8.6",
     "browserify": "^16.5.0",
     "core-js": "^3.6.4",
-    "coveralls": "^3.0.6",
-    "del": "^5.1.0",
     "eslint": "^6.4.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-standard": "^14.1.0",
@@ -46,13 +36,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-standard": "^4.0.1",
-    "husky": "^3.0.5",
-    "istanbul": "^0.4.5",
     "markdown-it": "^10.0.0",
     "markdown-it-testgen": "^0.1.6",
-    "mocha": "^6.2.0",
-    "nyc": "^14.1.1",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "mocha": "^6.2.0"
   }
 }
