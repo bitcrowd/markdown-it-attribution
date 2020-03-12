@@ -4,7 +4,7 @@ import assert from 'assert';
 import MarkdownItAttribution from '..';
 
 describe('The plugin api', function () {
-  it('should make the marker configurable', function () {
+  test('configure marker option', function () {
     const md = new MarkdownIt().use(MarkdownItAttribution, { attributionPrefix: '---' });
     const output = md.render('> Quotation\n> --- Some Attribution');
 
