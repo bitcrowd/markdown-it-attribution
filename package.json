@@ -18,15 +18,15 @@
     "build": "babel src --out-dir . --ignore \"**/__test__\",\"**/*.test.js\"",
     "test": "jest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "core-js": "^3.6.4"
+  },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.7",
     "@babel/plugin-transform-object-assign": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
     "@babel/register": "^7.8.6",
-    "browserify": "^16.5.0",
-    "core-js": "^3.6.4",
     "eslint": "^6.4.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-standard": "^14.1.0",
