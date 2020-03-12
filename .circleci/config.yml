@@ -1,0 +1,51 @@
+version: 2
+references:
+  base: &base
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/markdown-it-attribution
+jobs:
+  setup:
+    <<: *base
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}-{{ arch }}
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - node_modules
+      - save_cache:
+          key: repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/markdown-it-attribution
+  lint:
+    <<: *base
+    steps:
+      - restore_cache:
+          key: repo-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Run JS Linter
+          command: yarn lint
+  test:
+    <<: *base
+    steps:
+      - restore_cache:
+          key: repo-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Run Tests
+          command: yarn test --maxWorkers=2 --ci --reporters=default
+workflows:
+  version: 2
+  checks:
+    jobs:
+      - setup
+      - lint:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
