@@ -1,4 +1,4 @@
-import flat from './util/flat';
+import { flatten, zip } from './util';
 
 export default function markdownItAttribution(md, options) {
   const attributionPrefix = (options && options.attributionPrefix) || '--';
@@ -24,7 +24,7 @@ export default function markdownItAttribution(md, options) {
     const blockquoteOpenIndices = indicesWithTokenType(tokens, 'blockquote_open');
     const blockquoteCloseIndices = indicesWithTokenType(tokens, 'blockquote_close');
 
-    return zipArrays(blockquoteOpenIndices, blockquoteCloseIndices);
+    return zip(blockquoteOpenIndices, blockquoteCloseIndices);
   }
 
   function indicesWithTokenType(tokens, tokenType) {
@@ -51,7 +51,7 @@ export default function markdownItAttribution(md, options) {
 
     const innerTokens = innerBlockquoteTokens(tokens, fromIndex, toIndex);
 
-    return flat([openingToken, innerTokens, closingToken]);
+    return flatten([openingToken, innerTokens, closingToken]);
   }
 
   function innerBlockquoteTokens(tokens, fromIndex, toIndex) {
@@ -61,7 +61,7 @@ export default function markdownItAttribution(md, options) {
       .filter((token) => token.type === 'inline')
       .map((token) => token.content.split('\n'))
 
-    return flat(quoteLines).map((quoteLine) => singleQuoteLineTokens(quoteLine, level));
+    return flatten(quoteLines).map((quoteLine) => singleQuoteLineTokens(quoteLine, level));
   }
 
   function singleQuoteLineTokens(quoteLine, level) {
@@ -119,10 +119,6 @@ export default function markdownItAttribution(md, options) {
     token.level = level;
     token.block = true;
     return token;
-  }
-
-  function zipArrays(array1, array2) {
-    return array1.map((element, index) => [element, array2[index]]);
   }
 
   setupBlockquoteRule();
