@@ -38,7 +38,7 @@ import MarkdownItAttribution from './markdown-it/markdown-it-attribution';
 const mdit = new Markdown().use(MarkdownItAttribution, { attributionPrefix: '---' });
 const blockquote = [
   '> That\'s one small step for [a] man, one giant leap for mankind.',
-  '> — Neil Armstrong (1969, July 21)'
+  '> --— Neil Armstrong (1969, July 21)'
 ];
 
 mdit.render(blockquote.join('\n'));
