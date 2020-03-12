@@ -1,10 +1,10 @@
 import MarkdownIt from 'markdown-it';
 import assert from 'assert';
 
-import MarkdownItAttribution from '../src/';
+import MarkdownItAttribution from '../src';
 
-describe('The plugin api', function () {
-  test('configure marker option', function () {
+describe('The plugin api', () => {
+  test('configure marker option', () => {
     const md = new MarkdownIt().use(MarkdownItAttribution, { attributionPrefix: '---' });
     const output = md.render('> Quotation\n> --- Some Attribution');
 

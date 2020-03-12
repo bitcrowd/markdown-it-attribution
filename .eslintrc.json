@@ -1,16 +1,12 @@
 {
   "extends": [
-    "airbnb",
-    "plugin:mocha/recommended"
+    "airbnb-base"
   ],
+  "ignorePatterns": ["index.js"],
   "plugins": [
-    "mocha"
+    "jest"
   ],
   "env": {
-    "mocha": true
-  },
-  "rules": {
-    "prefer-arrow-callback": "off",
-    "func-names": "off"
+    "jest": true
   }
 }
