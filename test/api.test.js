@@ -1,7 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import assert from 'assert';
 
-import MarkdownItAttribution from '..';
+import MarkdownItAttribution from '../src/';
 
 describe('The plugin api', function () {
   test('configure marker option', function () {
