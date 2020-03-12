@@ -1,45 +1,13 @@
 "use strict";
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.array.concat");
-
-require("core-js/modules/es.array.filter");
-
-require("core-js/modules/es.array.flat");
-
-require("core-js/modules/es.array.for-each");
-
-require("core-js/modules/es.array.from");
-
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.array.slice");
-
-require("core-js/modules/es.array.splice");
-
-require("core-js/modules/es.array.unscopables.flat");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.split");
-
-require("core-js/modules/es.string.starts-with");
-
-require("core-js/modules/es.string.trim-start");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = markdownItAttribution;
+exports["default"] = markdownItAttribution;
+
+var _flat = _interopRequireDefault(require("./util/flat"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -108,7 +76,7 @@ function markdownItAttribution(md, options) {
     var openingToken = tokens[fromIndex];
     var closingToken = tokens[toIndex];
     var innerTokens = innerBlockquoteTokens(tokens, fromIndex, toIndex);
-    return [openingToken, innerTokens, closingToken].flat(2);
+    return (0, _flat["default"])([openingToken, innerTokens, closingToken]);
   }
 
   function innerBlockquoteTokens(tokens, fromIndex, toIndex) {
@@ -117,8 +85,8 @@ function markdownItAttribution(md, options) {
       return token.type === 'inline';
     }).map(function (token) {
       return token.content.split('\n');
-    }).flat();
-    return quoteLines.map(function (quoteLine) {
+    });
+    return (0, _flat["default"])(quoteLines).map(function (quoteLine) {
       return singleQuoteLineTokens(quoteLine, level);
     });
   }
