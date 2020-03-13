@@ -2,6 +2,12 @@
   "name": "markdown-it-blockquote-cite",
   "version": "0.1.2",
   "description": "A markdown-it plugin that handles attributions in blockquotes with <cite> tags.",
+  "keywords": [
+    "markdown-it",
+    "markdown-it-plugin",
+    "blockquote",
+    "cite"
+  ],
   "homepage": "https://github.com/bitcrowd/markdown-it-blockquote-cite#readme",
   "repository": {
     "type": "git",
