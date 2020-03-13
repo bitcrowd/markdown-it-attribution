@@ -3,7 +3,7 @@ references:
   base: &base
     docker:
       - image: circleci/node:12
-      working_directory: ~/markdown-it-blockquote-cite
+    working_directory: ~/markdown-it-blockquote-cite
 jobs:
   setup:
     <<: *base
