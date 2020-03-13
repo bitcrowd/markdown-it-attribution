@@ -5,8 +5,9 @@ export default function markdownItAttribution(md, options) {
   const attributionPrefix = (options && options.attributionPrefix) || '--';
   let Token;
 
-  // setup Blockquote Rule
-  md.core.ruler.after('block', 'attribution', blockquoteRule);
+  function setupBlockquoteRule() {
+    md.core.ruler.after('block', 'attribution', blockquoteRule);
+  }
 
   function blockquoteRule(state) {
     // make Token constructor accessible to deeply nested helper functions
@@ -48,4 +49,6 @@ export default function markdownItAttribution(md, options) {
     const filtered = mapped.filter((element) => element !== null);
     return filtered;
   }
+
+  setupBlockquoteRule();
 }
