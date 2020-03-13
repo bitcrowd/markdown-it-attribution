@@ -2,7 +2,7 @@
   "extends": [
     "airbnb-base"
   ],
-  "ignorePatterns": ["dist"],
+  "ignorePatterns": ["index.js"],
   "plugins": [
     "jest"
   ],
