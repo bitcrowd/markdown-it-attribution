@@ -1,22 +1,23 @@
 {
-  "name": "markdown-it-attribution",
-  "version": "0.1.1",
+  "name": "markdown-it-blockquote-cite",
+  "version": "0.1.2",
   "description": "A markdown-it plugin that handles attributions in blockquotes with <cite> tags.",
-  "homepage": "https://github.com/bitcrowd/markdown-it-attribution#readme",
+  "homepage": "https://github.com/bitcrowd/markdown-it-blockquote-cite#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bitcrowd/markdown-it-attribution.git"
+    "url": "git+https://github.com/bitcrowd/markdown-it-blockquote-cite.git"
   },
   "author": "bitcrowd",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bitcrowd/markdown-it-attribution/issues"
+    "url": "https://github.com/bitcrowd/markdown-it-blockquote-cite/issues"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint .",
-    "build": "babel src --out-dir . --ignore \"**/__test__\",\"**/*.test.js\"",
-    "test": "jest"
+    "build": "babel src --out-dir dist/ --ignore \"**/__test__\",\"**/*.test.js\"",
+    "test": "jest",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {},
   "devDependencies": {

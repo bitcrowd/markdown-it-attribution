@@ -3,7 +3,7 @@ references:
   base: &base
     docker:
       - image: circleci/node:12
-    working_directory: ~/markdown-it-attribution
+    working_directory: ~/markdown-it-blockquote-cite
 jobs:
   setup:
     <<: *base
@@ -21,7 +21,7 @@ jobs:
       - save_cache:
           key: repo-{{ .Environment.CIRCLE_SHA1 }}
           paths:
-            - ~/markdown-it-attribution
+            - ~/markdown-it-blockquote-cite
   lint:
     <<: *base
     steps:

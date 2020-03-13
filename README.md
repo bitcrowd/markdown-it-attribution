@@ -1,4 +1,4 @@
-# markdown-it-attribution
+# markdown-it-blockquote-cite
 
 This is a fork from https://github.com/bitcrowd/markdown-it-attribution which adjusts the functionality to our needs, removes most of the features we don't use and refactors the code a bit.
 It's a very specialized version of the original plugin, so please use at your own risk.
@@ -21,21 +21,21 @@ Will be rendered as:
 ## Install
 
 ```bash
-yarn add bitcrowd/markdown-it-attribution#master
+yarn add bitcrowd/markdown-it-blockquote-cite#master
 ```
 
 If you don't use `yarn`:
 ```bash
-npm install --save bitcrowd/markdown-it-attribution#master
+npm install --save bitcrowd/markdown-it-blockquote-cite#master
 ```
 
 ## Usage
 
 ```js
 import Markdown from 'markdown-it';
-import MarkdownItAttribution from './markdown-it/markdown-it-attribution';
+import MarkdownBlockquoteCite from './markdown-it-blockquote-cite';
 
-const mdit = new Markdown().use(MarkdownItAttribution, { attributionPrefix: '---' });
+const mdit = new Markdown().use(MarkdownBlockquoteCite, { attributionPrefix: '---' });
 const blockquote = [
   '> Quoted text here. Lorem ipsom etc',
   '> More quoted text here. Lorem ipsom etc',
@@ -47,4 +47,4 @@ mdit.render(blockquote.join('\n'));
 
 Options are optional, `attributionPrefix` defaults to `--`;
 
-[MIT](https://github.com/bitcrowd/markdown-it-attribution/blob/master/LICENSE.txt)
+[MIT](https://github.com/bitcrowd/markdown-it-blockquote-cite/blob/master/LICENSE.txt)
