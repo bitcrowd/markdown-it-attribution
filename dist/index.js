@@ -5,7 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = markdownItAttribution;
 
-var _flat = _interopRequireDefault(require("./util/flat"));
+var _util = require("./util");
+
+var _blockquoteTokens = _interopRequireDefault(require("./blockquoteTokens"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -27,11 +29,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function markdownItAttribution(md, options) {
   var attributionPrefix = options && options.attributionPrefix || '--';
-  var Token;
+  var Token; // setup Blockquote Rule
 
-  function setupBlockquoteRule() {
-    md.core.ruler.after('block', 'attribution', blockquoteRule);
-  }
+  md.core.ruler.after('block', 'attribution', blockquoteRule);
 
   function blockquoteRule(state) {
     // make Token constructor accessible to deeply nested helper functions
@@ -39,17 +39,31 @@ function markdownItAttribution(md, options) {
     var indicePairs = blockquoteIndicePairs(state.tokens);
     indicePairs.forEach(function (indices) {
       var _indices = _slicedToArray(indices, 2),
-          from = _indices[0],
-          to = _indices[1];
+          fromIndex = _indices[0],
+          toIndex = _indices[1];
 
-      updateBlockquoteTokens(state.tokens, from, to);
+      var originalBlockquoteTokens = state.tokens.slice(fromIndex, toIndex + 1);
+      var updatedBlockquoteTokens = customBlockquoteTokens(originalBlockquoteTokens);
+      replaceBlockquoteTokens(state.tokens, fromIndex, toIndex, updatedBlockquoteTokens);
     });
   }
 
   function blockquoteIndicePairs(tokens) {
     var blockquoteOpenIndices = indicesWithTokenType(tokens, 'blockquote_open');
     var blockquoteCloseIndices = indicesWithTokenType(tokens, 'blockquote_close');
-    return zipArrays(blockquoteOpenIndices, blockquoteCloseIndices);
+    return (0, _util.zip)(blockquoteOpenIndices, blockquoteCloseIndices);
+  }
+
+  function replaceBlockquoteTokens(tokens, fromIndex, toIndex, updatedTokens) {
+    var deleteCount = toIndex - fromIndex + 1;
+    tokens.splice.apply(tokens, [fromIndex, deleteCount].concat(_toConsumableArray(updatedTokens)));
+  }
+
+  function customBlockquoteTokens(blockquoteTokens) {
+    var openingToken = blockquoteTokens[0];
+    var closingToken = blockquoteTokens[blockquoteTokens.length - 1];
+    var updatedBlockquoteTokens = (0, _blockquoteTokens["default"])(blockquoteTokens, Token, attributionPrefix);
+    return (0, _util.flatten)([openingToken, updatedBlockquoteTokens, closingToken]);
   }
 
   function indicesWithTokenType(tokens, tokenType) {
@@ -61,91 +75,4 @@ function markdownItAttribution(md, options) {
     });
     return filtered;
   }
-
-  function updateBlockquoteTokens(tokens, fromIndex, toIndex) {
-    var updatedTokens = blockquoteTokens(tokens, fromIndex, toIndex);
-    replaceBlockquoteTokens(tokens, fromIndex, toIndex, updatedTokens);
-  }
-
-  function replaceBlockquoteTokens(tokens, fromIndex, toIndex, updatedTokens) {
-    var deleteCount = toIndex - fromIndex + 1;
-    tokens.splice.apply(tokens, [fromIndex, deleteCount].concat(_toConsumableArray(updatedTokens)));
-  }
-
-  function blockquoteTokens(tokens, fromIndex, toIndex) {
-    var openingToken = tokens[fromIndex];
-    var closingToken = tokens[toIndex];
-    var innerTokens = innerBlockquoteTokens(tokens, fromIndex, toIndex);
-    return (0, _flat["default"])([openingToken, innerTokens, closingToken]);
-  }
-
-  function innerBlockquoteTokens(tokens, fromIndex, toIndex) {
-    var level = tokens[fromIndex].level;
-    var quoteLines = tokens.slice(fromIndex, toIndex).filter(function (token) {
-      return token.type === 'inline';
-    }).map(function (token) {
-      return token.content.split('\n');
-    });
-    return (0, _flat["default"])(quoteLines).map(function (quoteLine) {
-      return singleQuoteLineTokens(quoteLine, level);
-    });
-  }
-
-  function singleQuoteLineTokens(quoteLine, level) {
-    var trimmedQuoteLine = quoteLine.trimStart();
-
-    if (trimmedQuoteLine.startsWith(attributionPrefix)) {
-      var quoteLineWithoutPrefix = trimmedQuoteLine.replace(attributionPrefix, '').trimStart();
-      return [citationOpeningToken(level + 1), inlineToken(quoteLineWithoutPrefix, level + 2), citationClosingToken(level + 1)];
-    }
-
-    return [paragraphOpeningToken(level + 1), inlineToken(quoteLine, level + 2), paragraphClosingToken(level + 1)];
-  }
-
-  function citationOpeningToken(level) {
-    return citationToken(level, 1);
-  }
-
-  function citationClosingToken(level) {
-    return citationToken(level, -1);
-  }
-
-  function citationToken(level, nesting) {
-    var token = new Token('paragraph_open', 'cite', nesting);
-    token.level = level;
-    token.block = true;
-    return token;
-  }
-
-  function paragraphOpeningToken(level) {
-    return paragraphToken(level, 1);
-  }
-
-  function paragraphClosingToken(level) {
-    return paragraphToken(level, -1);
-  }
-
-  function inlineToken(content, level) {
-    var token = new Token('inline', '', 0);
-    token.content = content;
-    token.level = level + 2;
-    token.block = true;
-    token.children = [];
-    return token;
-  }
-
-  function paragraphToken(level, nesting) {
-    var token = new Token('paragraph_open', 'p', nesting);
-    token.level = level;
-    token.block = true;
-    return token;
-  }
-
-  function zipArrays(array1, array2) {
-    return array1.map(function (element, index) {
-      return [element, array2[index]];
-    });
-  }
-
-  setupBlockquoteRule();
 }
