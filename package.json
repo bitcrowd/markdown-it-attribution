@@ -1,6 +1,6 @@
 {
-  "name": "markdown-it-attribution",
-  "version": "0.1.1",
+  "name": "markdown-it-blockquote-cite",
+  "version": "0.1.2",
   "description": "A markdown-it plugin that handles attributions in blockquotes with <cite> tags.",
   "homepage": "https://github.com/bitcrowd/markdown-it-attribution#readme",
   "repository": {
