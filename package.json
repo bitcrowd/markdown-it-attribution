@@ -16,7 +16,8 @@
   "scripts": {
     "lint": "eslint .",
     "build": "babel src --out-dir dist/ --ignore \"**/__test__\",\"**/*.test.js\"",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {},
   "devDependencies": {
