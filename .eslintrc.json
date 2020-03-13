@@ -8,5 +8,8 @@
   ],
   "env": {
     "jest": true
+  },
+  "rules": {
+    "no-use-before-define": ["error", { "functions": false }]
   }
 }
