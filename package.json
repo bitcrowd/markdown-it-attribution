@@ -12,10 +12,10 @@
   "bugs": {
     "url": "https://github.com/bitcrowd/markdown-it-attribution/issues"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint .",
-    "build": "babel src --out-dir . --ignore \"**/__test__\",\"**/*.test.js\"",
+    "build": "babel src --out-dir dist/ --ignore \"**/__test__\",\"**/*.test.js\"",
     "test": "jest"
   },
   "dependencies": {},
