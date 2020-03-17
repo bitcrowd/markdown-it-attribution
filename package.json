@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-blockquote-cite",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A markdown-it plugin that handles attributions in blockquotes with <cite> tags.",
   "keywords": [
     "markdown-it",
